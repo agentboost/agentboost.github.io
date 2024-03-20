@@ -109,7 +109,6 @@
         figure {
             text-align: left; /* 让标题和视频居中对齐 */
         }
-        
         figcaption {
             margin-top: 10px; /* 在标题和视频之间添加一些空间 */
             margin-bottom: 5px; /* 在标题和视频之间添加一些空间 */
@@ -126,7 +125,7 @@
         <div class="row">
             <p></p> <p></p>
             <div class="col-md-12 text-center">
-                <strong><font size="+3">Bootstrapping LLM Agents via Verification</font></strong> 
+                <strong style="font-size: 36px;">Bootstrapping LLM Agents via Verification</strong>
             </div>
         </div>
         <div class="row">
@@ -239,6 +238,45 @@
                 
             </div>
         </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <h3>
+                    Benchmark
+                </h3>
+                <p class="text-justify">
+                    We evaluate the proposed method on two public benchmarks:
+                    <ul  class="text-justify">
+                        <li><a href="https://sheetcopilot.github.io"><b>SheetCopilot</b></a>: The SheetCopilot dataset contains 28 evaluation workbooks and 989 spreadsheet manipulation tasks, categorized into 768 training samples and 221 test samples, that are applied to these workbooks. Each task specifies a high-level request, involving standard spreadsheet operations.</li>
+                        <li><a href="https://osu-nlp-group.github.io/Mind2Web/"><b>Mind2Web</b></a>: The Mind2Web dataset consists of web-browsing tasks derived from 137 websites across various domains. It assesses the ability of agents to follow human instructions for completing complex tasks in web environments. Each step of a task is evaluated independently with the ground truth action history provided, prompting an agent to predict either Click [Id], Type [Id] [Value], or Select [Option]. The cross-website split of this dataset is used in our experiments.</li>
+                </p>
+
+            </div>
+
+        </div>
+
+        <div class="row">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <h3>
+                    Results
+                </h3>
+                <p style="text-align:center;">
+                    <img src="img/exp1.png" class="img-responsive" width="80%">
+                </p>
+                <p class="text-justify">
+                    <b>Exp. 1.1: Overall performance on the SheetCopilot benchmark.</b> This table compares the target model bootstrapped with our proposed method and three proprietary LLMs. The target model, CodeLlama-34B-SFT, achieves impressive Exec\(@50\) and Pass\(@50\) which substantially surpass Exec$@1$ and Pass$@1$ of the three proprietary LLMs. When aided by the verifiers, the target model obtains higher Pass\(@1\). Additionally, our bootstrapping method unleashes the model's potential using verification-aided self-training, lifting this target model to a higher level.
+                </p>
+                <p><br></p>
+
+                <p style="text-align:center;">
+                    <img src="img/exp2.png" class="img-responsive" width="50%">
+                </p>
+                <p class="text-justify">
+                    <b>Exp. 1.2: Overall performance on the cross-website split of the Mind2web benchmark.</b> The target model, CodeLlama-34B-SFT (CL), is weaker than all of the three compared methods. However, this model obtains notably high metrics when sampling 20 predictions (best of 20). Using the verifiers (Verif.), the target model also achieves performance gain, outperforming MindAct (GPT-3.5).
+                </p>
+                <p><br></p>
+            </div>
+        </div>
         
         <div class="row" id="demo">
             <div class="col-md-8 col-md-offset-2 col-xs-12">
@@ -249,7 +287,22 @@
                     We show a example of the SheetCopilot benchmark used in our experiments in below. The left column of the figure shows that the agent generates a step-by-step solution according to the sheet state feedback and correctly revises its mistakes using the external atomic action document as well as the error feedback. The incorrect arguments are marked with red rectangles. The right column shows that the sheet state changes corresponding to each step on the left.
                 </p>
                 
-                <img src="img/dialog_example.png" width="100%" alt="SheetCopilot example: Handling sales data.">
+                <img src="img/dialog_example.png" width="100%" alt="SheetCopilot Example">
+                <p></p>
+
+            </div>
+        </div>
+
+        <div class="row" id="demo">
+            <div class="col-md-8 col-md-offset-2 col-xs-12">
+                <h3>
+                    Error Types Recognized in Verification
+                </h3>
+                <p class="text-justify">
+                    The verifier comprises of two processes: Symbolic Verification and Neural Verification, which are used to recognize different types of errors. For an in-depth exploration of the verifier's mechanisms, please refer to our paper. Below, we show the types of errors recognized by the verifier, which is specifically tailored for the SheetCopilot benchmark.
+                </p>
+                
+                <img src="img/sankey.png" width="100%" alt="Error types recognized in verification">
                 <p></p>
 
             </div>
